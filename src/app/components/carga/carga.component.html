@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="com-md-4">
+        <h3>Seleccione Archivo</h3>
+        <div appNgDropFiles [archivos]="archivos" (mouseOver)="overElement = $event" class="well drop-zone" [ngClass]="{'file-over': overElement}">
+            <h4>Arrestre y suelte la imagen aquí</h4>
+            <img src="../../../assets/drop-images.png" alt="carga imagen">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h4>Cargar Archivos</h4>
+        <button class="btn btn-success" (click)="cargarImagen()" [disabled]="archivos.length === 0">
+        Cargar fotos
+      </button>
+        <button (click)="limpiarArchivos()" class="btn btn-danger">
+        Limpiar
+      </button>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Nombre archivo</th>
+                        <th>Tamaño</th>
+                        <th>Progeso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let archivo of archivos">
+                        <td>{{ archivo.nombre}}</td>
+                        <td class="text-center">{{ archivo.archivo.size / 1024 /1024 | number:'.2-2'}} MB</td>
+                        <td>
+                            <!-- <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 25%;">25%</div>
+                            </div> -->
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" [ngClass]="{'progress-bar-animated': archivo.progreso < 100, 'bg-success': archivo.progreso >= 100}" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width': archivo.progreso + '%'}"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
